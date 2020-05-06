@@ -1,7 +1,7 @@
 $resourceGroup = "azureIotDemo"
 $subscription = "Azure for Students"
 $hubName = "demoHub198"
-$deviceId = "virtaulDevice"
+$deviceId = "virtualDevice"
 
 
 # Login to Azure
@@ -17,7 +17,10 @@ az iot hub create --name $hubName --resource-group $resourceGroup --sku F1 --par
 az iot hub device-identity create --hub-name $hubName --device-id $deviceId
 
 # Simulate a device
-az iot device simulate --hub-name $hubName --device-id $deviceId --data "This is a test message" --msg-count 5 --msg-interval 2000 
+az iot device simulate --hub-name $hubName --device-id $deviceId 
+
+# # Send C2D message
+# az iot device c2d-message send --hub-name $hubName --device-id $deviceId
 
 # # Delete all resources
 # az group delete --name $hubName
