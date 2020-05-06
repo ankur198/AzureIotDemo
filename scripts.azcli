@@ -1,0 +1,19 @@
+$resourceGroup = "azureIotDemo"
+$subscription = "Azure for Students"
+$hubName = "demoHub198"
+
+
+# Login to Azure
+az login
+
+# Create resource group
+az group create --name $resourceGroup --location "eastus" --subscription $subscription
+
+# Create Iot Hub
+az iot hub create --name $hubName --resource-group $resouceGroup --sku F1 --partition-count 2
+
+# Simulate a device
+az iot device simulate --hub-name $hubName --device-id "virtaulDevice" --data "This is a test message" --msg-count 5 --msg-interval 2000
+
+# Delete all resources
+az group delete --name $hubName
