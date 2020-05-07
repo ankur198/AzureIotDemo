@@ -31,7 +31,9 @@ function refreshState() {
   setInterval(async () => {
     const states = await getStatus();
     console.log(states);
-    redEl.checked = states[0]
+    whiteEl.checked = states["8"].value;
+    redEl.checked = states["10"].value;
+    discoEl.checked = states[disco];
   }, 500);
 }
 
