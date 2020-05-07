@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 from time import sleep
 from threading import Thread
-from flask import Flask
+from flask import Flask, render_template
 import json
 
 
@@ -13,7 +13,7 @@ class LED():
 
     def set_pin(self, value):
         self.value = value
-        GPIO.output(self.pin,self.value)
+        GPIO.output(self.pin, self.value)
 
     def __str__(self):
         return self.value
@@ -30,6 +30,11 @@ pins = {
 app = Flask(__name__, static_folder='/')
 discoThread = None
 discoFlag = False
+
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 
 @app.route('/status')
