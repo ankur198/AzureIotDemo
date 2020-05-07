@@ -19,7 +19,9 @@ def index():
 @app.route('/<int:pin_num>/<int:value>')
 def change_pin_state(pin_num, value):
     if pin_num is 8 or pin_num is 10 and value is 1 or value is 0:
-            GPIO.output(pin_num, value)
+        GPIO.output(pin_num, value)
+        return f'{pin_num} {value}'
+    return 'bad request'
 
 
 if __name__ == "__main__":
