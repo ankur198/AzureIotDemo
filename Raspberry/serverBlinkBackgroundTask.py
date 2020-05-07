@@ -11,6 +11,7 @@ GPIO.setup(10, GPIO.OUT, initial=GPIO.LOW)
 
 app = Flask(__name__)
 discoThread = None
+discoFlag = False
 
 
 @app.route('/')
@@ -28,22 +29,23 @@ def change_pin_state(pin_num, value):
 
 @app.route('/disco/<int:value>')
 def disco(value):
-    global discoThread
+    global discoThread, discoFlag
     if value == 1:
         discoThread = Thread(target=blink)
+        discoFlag = True
         discoThread.start()
     elif discoThread != None:
-        discoThread._stop()
+        discoFlag = False
+        discoThread = None
     return 'ok'
 
 
 def blink():
-    while True:
+    global discoFlag
+    while discoFlag:
         GPIO.output(8, GPIO.HIGH)  # Turn on
-        GPIO.output(10, GPIO.LOW)  # Turn on
         sleep(1)  # Sleep for 1 second
         GPIO.output(8, GPIO.LOW)  # Turn off
-        GPIO.output(10, GPIO.HIGH)  # Turn off
         sleep(1)  # Sleep for 1 second
 
 
