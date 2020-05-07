@@ -2,10 +2,10 @@ import RPi.GPIO as GPIO
 from time import sleep
 from threading import Thread
 from flask import Flask
-from json import JSONEncoder
+import json
 
 
-class LED(JSONEncoder):
+class LED():
     def __init__(self, pin):
         self.pin = pin
         self.value = 0
@@ -13,13 +13,10 @@ class LED(JSONEncoder):
 
     def set_pin(self, value):
         self.value = value
-        GPIO.output(8, GPIO.LOW)
+        GPIO.output(self.pin,self.value)
 
     def __str__(self):
         return self.value
-
-    def default(self, o):
-        return o.__dict__
 
 
 GPIO.setwarnings(False)
@@ -37,7 +34,10 @@ discoFlag = False
 
 @app.route('/status')
 def status():
-    return pins
+    res = []
+    for pin in pins:
+        res.append(pins[pin].__dict__)
+    return json.dumps(res)
 
 
 @app.route('/<int:pin_num>/<int:value>')
