@@ -43,3 +43,5 @@ function onLoaded() {
   });
   refreshState();
 }
+
+onLoaded();
