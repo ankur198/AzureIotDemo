@@ -34,6 +34,7 @@ def disco(value):
         discoThread.start()
     elif discoThread != None:
         discoThread._stop()
+    return 'ok'
 
 
 def blink():
