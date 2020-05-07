@@ -9,7 +9,9 @@ GPIO.setup(8, GPIO.OUT, initial=GPIO.LOW)
 
 
 while True:  # Run forever
+    print('turning on')
     GPIO.output(8, GPIO.HIGH)  # Turn on
     sleep(1)  # Sleep for 1 second
+    print('turning off')
     GPIO.output(8, GPIO.LOW)  # Turn off
     sleep(1)  # Sleep for 1 second
