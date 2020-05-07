@@ -1,5 +1,9 @@
 const serverUrl = window.location.origin;
 
+const redEl = document.getElementById("red");
+const whiteEl = document.getElementById("white");
+const discoEl = document.getElementById("disco");
+
 async function getStatus() {
   const res = await fetch(serverUrl + "/status");
   return res.json();
@@ -25,7 +29,9 @@ async function onButtonChanged(element) {
 
 function refreshState() {
   setInterval(async () => {
-    console.log(await getStatus());
+    const states = await getStatus();
+    console.log(states);
+    redEl.checked = states[0]
   }, 500);
 }
 

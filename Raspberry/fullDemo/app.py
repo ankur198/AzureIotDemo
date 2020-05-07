@@ -2,7 +2,6 @@ import RPi.GPIO as GPIO
 from time import sleep
 from threading import Thread
 from flask import Flask, render_template
-import json
 
 
 class LED():
@@ -40,11 +39,11 @@ discoFlag = False
 
 @app.route('/status')
 def status():
-    res = []
+    res = {}
     for pin in pins:
-        res.append(pins[pin].__dict__)
-    res.append({'disco': discoFlag})
-    return json.dumps(res)
+        res[pin] = pins[pin].__dict__
+    res['disco'] = discoFlag
+    return res
 
 
 @app.route('/<int:pin_num>/<int:value>')
