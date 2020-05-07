@@ -1,8 +1,22 @@
 * {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body,
+head {
+  margin: 0;
+  padding: 0;
 }
 
 #nav {
-  background-color: rgb(71, 59, 245);
+  background-color: #453dbe;
   color: white;
+  padding: 20;
 }
+
+#nav h1 {
+  font-weight: 100;
+}
+/*# sourceMappingURL=style.css.map */
