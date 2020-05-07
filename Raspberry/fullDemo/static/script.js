@@ -6,10 +6,20 @@ async function getStatus() {
 }
 
 async function onButtonChanged(element) {
-  if (element.id === "red") {
-    await fetch(serverUrl + "/10/" + element.checked ? "1" : "0");
+  let pinNum = null;
+  switch (element.id) {
+    case "red":
+      pinNum = 10;
+      break;
+    case "white":
+      pinNum = 8;
+      break;
+    case "disco":
+      pinNum = "disco";
+      break;
   }
-  console.log(element.id, element.checked);
+  const url = `${serverUrl}/${pinNum}/${element.checked ? "1" : "0"}`;
+  console.log(element.id, element.checked, url);
 }
 
 function onLoaded() {
