@@ -8,6 +8,9 @@ head {
   margin: 0;
   padding: 0;
 }
+body {
+  min-height: 100vh;
+}
 
 #nav {
   background-color: rgb(69, 61, 190);

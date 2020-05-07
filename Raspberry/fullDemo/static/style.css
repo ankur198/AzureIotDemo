@@ -10,6 +10,10 @@ head {
   padding: 0;
 }
 
+body {
+  min-height: 100vh;
+}
+
 #nav {
   background-color: #453dbe;
   color: white;
