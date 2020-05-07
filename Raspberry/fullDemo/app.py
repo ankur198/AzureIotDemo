@@ -41,7 +41,7 @@ discoFlag = False
 def status():
     res = {}
     for pin in pins:
-        res[pin] = pins[pin].__dict__
+        res[str(pin)] = pins[pin].__dict__
     res['disco'] = discoFlag
     return res
 
