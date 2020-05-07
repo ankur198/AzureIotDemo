@@ -17,10 +17,11 @@ body {
 #nav {
   background-color: #453dbe;
   color: white;
-  padding: 20;
+  padding: 20px;
 }
 
 #nav h1 {
   font-weight: 100;
+  margin: 0;
 }
 /*# sourceMappingURL=style.css.map */
