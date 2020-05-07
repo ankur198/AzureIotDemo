@@ -13,8 +13,8 @@ const char *password = "youCANhack1";
 
 jenkinsJob jenkins("http://192.168.1.104:8080", "DotnetXUnit", "master");
 
-const uint success_pin = 19;
-const uint fail_pin = 18;
+const uint success_pin = 18;
+const uint fail_pin = 19;
 const uint building_pin = 5;
 
 void setup()
@@ -54,26 +54,26 @@ void loop()
 
   if (result.equals(jenkins.SUCCESS))
   {
-    digitalWrite(success_pin, HIGH);
-    digitalWrite(fail_pin, LOW);
-    digitalWrite(building_pin, LOW);
+    digitalWrite(success_pin, LOW);
+    digitalWrite(fail_pin, HIGH);
+    digitalWrite(building_pin, HIGH);
   }
   else if (result.equals(jenkins.FAILURE))
   {
-    digitalWrite(success_pin, LOW);
-    digitalWrite(fail_pin, HIGH);
-    digitalWrite(building_pin, LOW);
-  }
-  else if (result.equals(jenkins.BUILDING))
-  {
-    digitalWrite(success_pin, LOW);
+    digitalWrite(success_pin, HIGH);
     digitalWrite(fail_pin, LOW);
     digitalWrite(building_pin, HIGH);
   }
-  else
+  else if (result.equals(jenkins.BUILDING))
   {
     digitalWrite(success_pin, HIGH);
     digitalWrite(fail_pin, HIGH);
-    digitalWrite(building_pin, HIGH);
+    digitalWrite(building_pin, LOW);
+  }
+  else
+  {
+    digitalWrite(success_pin, LOW);
+    digitalWrite(fail_pin, LOW);
+    digitalWrite(building_pin, LOW);
   }
 }
