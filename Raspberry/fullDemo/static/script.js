@@ -20,6 +20,7 @@ async function onButtonChanged(element) {
   }
   const url = `${serverUrl}/${pinNum}/${element.checked ? "1" : "0"}`;
   console.log(element.id, element.checked, url);
+  await fetch(url);
 }
 
 function onLoaded() {
