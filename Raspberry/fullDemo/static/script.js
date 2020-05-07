@@ -23,8 +23,15 @@ async function onButtonChanged(element) {
   await fetch(url);
 }
 
+function refreshState() {
+  setInterval(async () => {
+    console.log(await getStatus());
+  }, 500);
+}
+
 function onLoaded() {
   document.querySelectorAll(".button input[type=checkbox]").forEach((x) => {
     x.addEventListener("click", (y) => onButtonChanged(x));
   });
+  refreshState();
 }

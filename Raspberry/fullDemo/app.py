@@ -43,6 +43,7 @@ def status():
     res = []
     for pin in pins:
         res.append(pins[pin].__dict__)
+    res.append({'disco': discoFlag})
     return json.dumps(res)
 
 
