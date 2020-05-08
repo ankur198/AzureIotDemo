@@ -7,5 +7,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.Devices.Client" Version="1.25.0" />
+    <PackageReference Include="System.Device.Gpio" Version="1.0.0" />
   </ItemGroup>
 </Project>
