@@ -25,7 +25,7 @@ namespace IoTHubBlinky
 
             try
             {
-                gpioController = new GpioController();
+                gpioController = new GpioController(PinNumberingScheme.Board);
                 gpioController.OpenPin(ledPin, PinMode.Output);
             }
             catch (Exception e)
@@ -41,11 +41,11 @@ namespace IoTHubBlinky
             {
                 Console.ReadLine();
                 Console.WriteLine("Send data");
-                await sendData();
+                await SendData();
             }
         }
 
-        private static async Task sendData()
+        private static async Task SendData()
         {
             var data = new
             {
@@ -59,7 +59,7 @@ namespace IoTHubBlinky
             await s_deviceClient.SendEventAsync(message);
         }
 
-        private static async Task RecieveMessage()
+        private static async void RecieveMessage()
         {
             while (true)
             {
@@ -71,18 +71,18 @@ namespace IoTHubBlinky
 
                 if (gpioController != null)
                 {
-                    switch (messageString)
+                    switch (messageString.ToLower())
                     {
                         case "on":
-                            turnOn();
+                            TurnOn();
                             break;
 
                         case "off":
-                            turnOff();
+                            TurnOff();
                             break;
 
                         case "disco":
-                            toggleDisco();
+                            ToggleDisco();
                             break;
 
                         default:
@@ -99,19 +99,13 @@ namespace IoTHubBlinky
             }
         }
 
-        private static void turnOn()
-        {
-            gpioController.Write(ledPin, PinValue.High);
-        }
+        private static void TurnOn() => gpioController.Write(ledPin, PinValue.High);
 
-        private static void turnOff()
-        {
-            gpioController.Write(ledPin, PinValue.Low);
-        }
+        private static void TurnOff() => gpioController.Write(ledPin, PinValue.Low);
 
         private static bool isDiscoStarted = false;
 
-        private static void toggleDisco()
+        private static void ToggleDisco()
         {
             if (isDiscoStarted)
             {
@@ -120,19 +114,25 @@ namespace IoTHubBlinky
             else
             {
                 isDiscoStarted = true;
-                startDisco();
+                StartDisco();
             }
         }
 
-        private static async Task startDisco()
+        private static void StartDisco()
         {
-            while (isDiscoStarted)
+            var t = new Task(() =>
             {
-                gpioController.Write(ledPin, PinValue.High);
-                Thread.Sleep(1000);
-                gpioController.Write(ledPin, PinValue.Low);
-                Thread.Sleep(1000);
-            }
+                while (isDiscoStarted)
+                {
+                    Console.WriteLine(isDiscoStarted);
+                    gpioController.Write(ledPin, PinValue.High);
+                    Thread.Sleep(1000);
+                    gpioController.Write(ledPin, PinValue.Low);
+                    Thread.Sleep(1000);
+                }
+            });
+
+            t.Start();
         }
     }
 }
