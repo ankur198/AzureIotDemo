@@ -65,37 +65,40 @@ namespace IoTHubBlinky
             {
                 var message = await s_deviceClient.ReceiveAsync();
 
-                var messageString = Encoding.ASCII.GetString(message.GetBytes());
-
-                Console.WriteLine($"Message recieved... {messageString}");
-
-                if (gpioController != null)
+                if (message != null)
                 {
-                    switch (messageString.ToLower())
+                    var messageString = Encoding.ASCII.GetString(message.GetBytes());
+
+                    Console.WriteLine($"Message recieved... {messageString}");
+
+                    if (gpioController != null)
                     {
-                        case "on":
-                            TurnOn();
-                            break;
+                        switch (messageString.ToLower())
+                        {
+                            case "on":
+                                TurnOn();
+                                break;
 
-                        case "off":
-                            TurnOff();
-                            break;
+                            case "off":
+                                TurnOff();
+                                break;
 
-                        case "disco":
-                            ToggleDisco();
-                            break;
+                            case "disco":
+                                ToggleDisco();
+                                break;
 
-                        default:
-                            Console.WriteLine("No actions specified");
-                            break;
+                            default:
+                                Console.WriteLine("No actions specified");
+                                break;
+                        }
                     }
-                }
-                else
-                {
-                    Console.WriteLine("GpioController not found...Can't perform actions.");
-                }
+                    else
+                    {
+                        Console.WriteLine("GpioController not found...Can't perform actions.");
+                    }
 
-                await s_deviceClient.CompleteAsync(message);
+                    await s_deviceClient.CompleteAsync(message);
+                }
             }
         }
 
